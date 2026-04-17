@@ -29,6 +29,17 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
+
+    /**
+     * Get the post-login redirect path.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        return '/purchase-orders';
+    }
+
     /**
      * Create a new controller instance.
      *

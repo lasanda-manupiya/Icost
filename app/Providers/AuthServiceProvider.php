@@ -9,6 +9,7 @@ use App\CompanyFeature;
 use App\PermissionRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Modules\PurchaseManager\Entities\Purchase;
 use Modules\PurchaseManager\Entities\Quotation;
 use Modules\PurchaseManager\Policies\PurchasePolicy;
@@ -37,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider {
         $this->registerPolicies();
 
         Gate::define('access', function ($user, $permission) {
+            if (Str::startsWith($permission, 'purchase orders ')) {
+                return true;
+            }
+
             $role = RoleUser::whereHas('users', function($q) use ($user) {
                                 $q->where('user_id', $user->id);
                             })->get()->first();

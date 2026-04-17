@@ -56,6 +56,8 @@ class HomeController extends Controller {
      */
     public function index() {
 
+        return redirect()->route('purchase.orders.index');
+
         $title = 'Dashboard';
         $query1 = User::query();
         $query2 = User::query();
