@@ -81,38 +81,45 @@ $currentUrl = \Illuminate\Support\Facades\Request::segment(2);
                                         </a>
                                   </li>
                                    @endif
-                                @if (auth()->user()->can('access', 'suppliers visible'))
-                                   <!-- Supplier --> 
-                                   
-                                   
-                               <li>
+                                @php
+                                    $canViewSuppliers = auth()->user()->can('access', 'suppliers visible');
+                                    $canViewQuotations = auth()->user()->can('access', 'quotations visible');
+                                    $canViewPurchaseOrders = auth()->user()->can('access', 'purchase orders visible');
+                                @endphp
+                                @if ($canViewSuppliers || $canViewQuotations || $canViewPurchaseOrders)
+                                <li>
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-monitor"></i>
                                         Suppliers Management
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul>
+                                        @if ($canViewSuppliers)
                                         <li>
                                             <a href="{{ route('suppliers.index') }}" class="mm-{{ request()->is('supplierss/suppliers*') ? 'active' : '' }}">
                                                 <i class="metismenu-icon"></i>
                                                 Supplier Management
                                             </a>
                                         </li>
+                                        @endif
+                                        @if ($canViewQuotations)
                                         <li>
                                             <a href="{{ route('quotations.index') }}" class="mm-{{ request()->is('quotations*') ? 'active' : '' }}" >
                                                 <i class="metismenu-icon"></i>
                                                 Request for Quotation (RFQs)
                                             </a>
                                         </li>
+                                        @endif
+                                        @if ($canViewPurchaseOrders)
                                         <li>
                                             <a href="{{ route('purchase.orders.index') }}" class="mm-{{ request()->is('purchase-orders*') ? 'active' : '' }}">
                                                 <i class="metismenu-icon"></i>
                                                 Purchase Orders
                                             </a>
                                         </li>
+                                        @endif
                                     </ul>
                                </li>
-                                
                                 @endif
                                  @if (auth()->user()->can('access', 'users visible'))
                                    <!-- Supplier --> 
