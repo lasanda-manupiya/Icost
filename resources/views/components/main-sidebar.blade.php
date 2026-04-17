@@ -85,8 +85,24 @@ $currentUrl = \Illuminate\Support\Facades\Request::segment(2);
                                     $canViewSuppliers = auth()->user()->can('access', 'suppliers visible');
                                     $canViewQuotations = auth()->user()->can('access', 'quotations visible');
                                     $canViewPurchaseOrders = auth()->user()->can('access', 'purchase orders visible');
+                                    $isPurchaseOrderOnlyUser = $canViewPurchaseOrders
+                                        && !$canViewSuppliers
+                                        && !$canViewQuotations
+                                        && !auth()->user()->can('access', 'projects visible')
+                                        && !auth()->user()->can('access', 'users visible')
+                                        && !auth()->user()->can('access', 'admins visible')
+                                        && !auth()->user()->can('access', 'reports visible')
+                                        && !auth()->user()->can('access', 'timesheets visible')
+                                        && !auth()->user()->can('access', 'workflow visible');
                                 @endphp
-                                @if ($canViewSuppliers || $canViewQuotations || $canViewPurchaseOrders)
+                                @if ($isPurchaseOrderOnlyUser)
+                                <li class="mm-{{ request()->is('purchase-orders*') ? 'active' : '' }}">
+                                    <a href="{{ route('purchase.orders.index') }}">
+                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                        Purchase Orders
+                                    </a>
+                                </li>
+                                @elseif ($canViewSuppliers || $canViewQuotations || $canViewPurchaseOrders)
                                 <li>
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-monitor"></i>
