@@ -37,23 +37,7 @@ class LoginController extends Controller
      */
     public function redirectTo()
     {
-        if (!auth()->check()) {
-            return '/dashboard';
-        }
-
-        $user = auth()->user();
-
-        $isPurchaseOrderOnlyUser = $user->can('access', 'purchase orders visible')
-            && !$user->can('access', 'suppliers visible')
-            && !$user->can('access', 'quotations visible')
-            && !$user->can('access', 'projects visible')
-            && !$user->can('access', 'users visible')
-            && !$user->can('access', 'admins visible')
-            && !$user->can('access', 'reports visible')
-            && !$user->can('access', 'timesheets visible')
-            && !$user->can('access', 'workflow visible');
-
-        return $isPurchaseOrderOnlyUser ? '/purchase-orders' : '/dashboard';
+        return '/purchase-orders';
     }
 
     /**

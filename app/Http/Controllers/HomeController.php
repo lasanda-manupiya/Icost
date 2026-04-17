@@ -56,19 +56,7 @@ class HomeController extends Controller {
      */
     public function index() {
 
-        $isPurchaseOrderOnlyUser = auth()->user()->can('access', 'purchase orders visible')
-            && !auth()->user()->can('access', 'suppliers visible')
-            && !auth()->user()->can('access', 'quotations visible')
-            && !auth()->user()->can('access', 'projects visible')
-            && !auth()->user()->can('access', 'users visible')
-            && !auth()->user()->can('access', 'admins visible')
-            && !auth()->user()->can('access', 'reports visible')
-            && !auth()->user()->can('access', 'timesheets visible')
-            && !auth()->user()->can('access', 'workflow visible');
-
-        if ($isPurchaseOrderOnlyUser) {
-            return redirect()->route('purchase.orders.index');
-        }
+        return redirect()->route('purchase.orders.index');
 
         $title = 'Dashboard';
         $query1 = User::query();

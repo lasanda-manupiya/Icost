@@ -56,6 +56,14 @@ $currentUrl = \Illuminate\Support\Facades\Request::segment(2);
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Menu</li>
+                                <li class="mm-{{ request()->is('purchase-orders*') ? 'active' : '' }}">
+                                    <a href="{{ route('purchase.orders.index') }}">
+                                        <i class="metismenu-icon pe-7s-note2"></i>
+                                        Purchase Orders
+                                    </a>
+                                </li>
+
+                                @if(false)
                                 <li class="mm-{{(Request::segment(1)=='dashboard')?'active':''}}" @php /* style="background: rgba(0, 0, 0, 0.15)" */ @endphp >
                                     <a href="{{route('dashboard')}}">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
@@ -386,6 +394,8 @@ $currentUrl = \Illuminate\Support\Facades\Request::segment(2);
                              
                        
                                    
+                                @endif
+
                                 <li class="mm-{{ in_array(\Request::route()->getName(), ['logout']) ? 'active' : '' }}">
                                     <a href="#" data-toggle="modal" data-target="#Logout">
                                         <i class="metismenu-icon pe-7s-power"></i>

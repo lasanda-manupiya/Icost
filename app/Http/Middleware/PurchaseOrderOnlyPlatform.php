@@ -20,22 +20,6 @@ class PurchaseOrderOnlyPlatform
             return $next($request);
         }
 
-        $user = auth()->user();
-
-        $isPurchaseOrderOnlyUser = $user->can('access', 'purchase orders visible')
-            && !$user->can('access', 'suppliers visible')
-            && !$user->can('access', 'quotations visible')
-            && !$user->can('access', 'projects visible')
-            && !$user->can('access', 'users visible')
-            && !$user->can('access', 'admins visible')
-            && !$user->can('access', 'reports visible')
-            && !$user->can('access', 'timesheets visible')
-            && !$user->can('access', 'workflow visible');
-
-        if (!$isPurchaseOrderOnlyUser) {
-            return $next($request);
-        }
-
         $allowedPatterns = [
             'dashboard',
             'purchase-orders*',
